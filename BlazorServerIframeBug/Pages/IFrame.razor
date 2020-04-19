@@ -1,0 +1,30 @@
+﻿@page "/i/iframe"
+
+@using System.Diagnostics
+
+@if (Url != null)
+{
+    <iframe src="@(Url)" style="width:100%; height:100%; border:0; border-style:solid;" />
+}
+else
+{
+    <div>Url is null</div>
+}
+
+@code {
+    [Parameter]
+    public string? SomeString { get; set; }
+    string? Url = null;
+
+    protected override void OnParametersSet()
+    {
+        Task.Run(async () =>
+        {
+            await InvokeAsync(() =>
+            {
+                Url = "https://demo.codimd.org/CGdlv3HDQwaQe_Y6uWKLhw";
+                base.StateHasChanged();
+            });
+        });
+    }
+}
